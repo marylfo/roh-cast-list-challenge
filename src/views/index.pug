@@ -10,11 +10,20 @@ html(lang='en')
 
   body
     h1= title
-    p !{shortDescription}
+    | !{shortDescription}
 
     h2 Creatives
     ul
     each val, key in creatives
       li= key + ': ' + val
+
+    h2 Cast
+    each run in casts
+      h5 #{run.date}
+      h6 Conducted by #{run.conductedBy}
+      ul
+        each cast in run.cast
+          each val, key in cast
+            li= key
 
     script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js' integrity='sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN' crossorigin='anonymous')
