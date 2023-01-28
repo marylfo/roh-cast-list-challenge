@@ -13,9 +13,26 @@ export class AppController {
       const dataFormatter = new Jsona();
       const eventDetail = dataFormatter.deserialize(data);
 
+      const creativesArr = _.flatten(
+        _.chain(eventDetail)
+          .get('productions', [])
+          .map('creatives')
+          .forEach(ele => _.pick(ele, 'role, name'))
+          .value()
+      );
+      const creatives = _.reduce(creativesArr, (result, obj) => {
+        const role = _.get(obj, 'role', null);
+        const name = _.get(obj, 'name', null);
+        if (role != null && name != null) {
+          result[name] = role;
+        }
+        return result;
+      }, {})
+
       return {
         title: _.get(eventDetail, 'title', ''),
         shortDescription: _.get(eventDetail, 'shortDescription', ''),
+        creatives,
       };
 
     } catch(error) {
@@ -27,8 +44,8 @@ export class AppController {
 
   static async render(req: Request, res: Response) {
     try {
-      const { title, shortDescription } = await AppController.getApiData();
-      res.render('index', { title, shortDescription });
+      const { title, shortDescription, creatives } = await AppController.getApiData();
+      res.render('index', { title, shortDescription, creatives });
     } catch(error) {
       res.render('error', { error });
     }
