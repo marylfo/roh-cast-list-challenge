@@ -2,6 +2,28 @@
 
 Dev challenge to build a tool for the ROH
 
+## Install and Run the Project
+The application is written in TypeScript using [Express](https://expressjs.com) and [pug](https://pugjs.org/api/getting-started.html).
+
+### 1. Set up `.env` file
+Please copy the file `.env.example` in the root directory and rename it to `.env`.
+
+### 2. Install the dependencies
+```
+npm install
+```
+
+### 3. Build and run the project
+```
+npm run build
+npm run start
+```
+
+You may run the below command to view the instant change in development mode.
+```
+npm run dev
+```
+
 ## Setup
 
 The Royal Opera House (ROH) needs a custom cast sheet generated for just one performance of an
